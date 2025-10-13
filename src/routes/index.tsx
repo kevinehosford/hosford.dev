@@ -1,9 +1,10 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, redirect } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/')({
-  component: App,
+  beforeLoad: () => {
+    redirect({
+      to: '/log',
+      throw: true,
+    });
+  },
 });
-
-function App() {
-  return <main></main>;
-}

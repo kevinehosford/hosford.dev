@@ -1,0 +1,6 @@
+### Overview
+Kept the Nexus build fast this week by carving the vendor bundle into predictable chunks and tightening our edge rewrites. Also pruned stale env plumbing so Atlas ingest and Sentry proxy traffic stick to the supported paths.
+
+### Highlights
+- [#5548](https://github.com/axiomhq/app/pull/5548) — Introduced a first pass of `manualChunks` in `vite.config.ts`, splitting monaco, APL language services, and visualization libraries into their own buckets so browsers can reuse cached code across releases. The change regenerates the lockfile and trims a few e2e assumptions, but the payoff is a steadier cold-start and fewer cache misses on dashboard loads.
+- [b442ad9](https://github.com/axiomhq/app/commit/b442ad9b147b8746b2222d91eb31d83047b1dfa1), [6450608](https://github.com/axiomhq/app/commit/645060863111b464b4739f51d950d818f57d848a), [1d55c29](https://github.com/axiomhq/app/commit/1d55c29d7387039bbb391cefeadb1718f3e7fca6) — Taught `nitro.config.ts` to rewrite `/api/v1/ingest` and `/api/v1/traces` directly to Atlas regardless of whether the backend URL ends with `/api`, keeping Vercel edge traffic in spec. While there, dropped the unused Sentry tunnel env overrides and cleaned up the schema so our deploys stop advertising knobs we no longer honor.

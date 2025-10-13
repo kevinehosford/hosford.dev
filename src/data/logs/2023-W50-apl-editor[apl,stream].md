@@ -1,0 +1,8 @@
+### Overview
+Focused on the APL editor stack, wiring virtual field metadata through Monaco while tidying how query tables respect analyst preferences. Also removed the December event banner so the dashboard stops advertising an expired session.
+
+### Highlights
+- [#1244](https://github.com/axiomhq/app/pull/1244), [#1247](https://github.com/axiomhq/app/pull/1247) — Taught the editor to fetch dataset vfields, map them into the Monaco schema, and update `AplEditorStore`, `ExplorerStore`, and auto-completion helpers to key off `dataset.name`. The refreshed Backstop fixtures confirm virtual column suggestions, and the language service bump plus README publishing steps lock in the 0.2.0 release for the Monaco workers.
+- [#1253](https://github.com/axiomhq/app/pull/1253), [#1254](https://github.com/axiomhq/app/pull/1254) — `AplFormRenderer` now leaves user-selected columns intact unless the query issues a `project`, and `Matches.tsx` prioritizes manual column lists over the compiled projection. This keeps analyst overrides when they tweak table columns while still respecting project-driven layouts when the query mandates one.
+- [#1249](https://github.com/axiomhq/app/pull/1249) — Removed the December customer summit banner wiring from `PrimaryLayout` and renamed the `deadline` prop to `deadlineDateTime` in `EventBanner`. The component now reads far clearer and we stop rendering expired CTAs after the registration window closed.
+- [#1228](https://github.com/axiomhq/app/pull/1228) — Updated `LogStreamViewStore` to skip `loadPreviousFilters()` when the stream loads in event-context mode so contextual pivots keep their scoped filters. This closes AXM-1944 and avoids jarring filter jumps when investigators step back from the event timeline into the log stream.

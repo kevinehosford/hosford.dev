@@ -10,33 +10,53 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LogIndexRouteImport } from './routes/log/index'
+import { Route as LogSlugRouteImport } from './routes/log/$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LogIndexRoute = LogIndexRouteImport.update({
+  id: '/log/',
+  path: '/log/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LogSlugRoute = LogSlugRouteImport.update({
+  id: '/log/$slug',
+  path: '/log/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/log/$slug': typeof LogSlugRoute
+  '/log': typeof LogIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/log/$slug': typeof LogSlugRoute
+  '/log': typeof LogIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/log/$slug': typeof LogSlugRoute
+  '/log/': typeof LogIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/log/$slug' | '/log'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/log/$slug' | '/log'
+  id: '__root__' | '/' | '/log/$slug' | '/log/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LogSlugRoute: typeof LogSlugRoute
+  LogIndexRoute: typeof LogIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +68,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/log/': {
+      id: '/log/'
+      path: '/log'
+      fullPath: '/log'
+      preLoaderRoute: typeof LogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/log/$slug': {
+      id: '/log/$slug'
+      path: '/log/$slug'
+      fullPath: '/log/$slug'
+      preLoaderRoute: typeof LogSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LogSlugRoute: LogSlugRoute,
+  LogIndexRoute: LogIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

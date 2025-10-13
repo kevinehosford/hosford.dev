@@ -1,0 +1,8 @@
+### Overview
+Tooling-focused sprint: stood up the MCP server that agents will lean on, made Playwright runs deterministic with seeded data, and trimmed back CI surprises around Nexus previews. Also patched API error handling so customers actually see Atlas messages instead of generic failures.
+
+### Highlights
+- [#5247](https://github.com/axiomhq/app/pull/5247) — Shipped the first-party MCP server with install scripts, transport adapters, and sample tooling (`describe_primitive_components`) so Claude/Cursor can introspect the workspace. The package is ready for follow-on tools like task context discovery and automated reviews.
+- [#5265](https://github.com/axiomhq/app/pull/5265), [#5269](https://github.com/axiomhq/app/pull/5269), [#5274](https://github.com/axiomhq/app/pull/5274), [#5229](https://github.com/axiomhq/app/pull/5229) — Built deterministic Playwright seeds (HTTP/K8s logs, loader helpers), fixed the editor cursor helper so locked lines survive, cleaned up query/stream assertions, and switched the suite to `PLAYWRIGHT_ACCESS_TOKEN` with `@e2e` tagging so we can swap identities per run.
+- [#5251](https://github.com/axiomhq/app/pull/5251) — Pointed preview deploys at Nexus-specific env values and switched to shipping the CI-produced bundle, eliminating the Vercel build OOMs while keeping PR previews alive for reviewers.
+- [#5275](https://github.com/axiomhq/app/pull/5275), [#5283](https://github.com/axiomhq/app/pull/5283) — Plumbed Atlas error bodies through the shared fetcher/templates so the UI shows the upstream message, then reverted the sweeping console→logger change when it started masking telemetry and store updates.

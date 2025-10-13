@@ -1,0 +1,8 @@
+### Overview
+Rounded out the flows destination story with Splunk support and more polished forms, and kept the tabular rollout moving with context-aware charts and safer parsing. Also dropped a couple of infrastructure tweaks for auth debugging and the webpack license checker.
+
+### Highlights
+- [#2807](https://github.com/axiomhq/app/pull/2807), [#2808](https://github.com/axiomhq/app/pull/2808), [#2815](https://github.com/axiomhq/app/pull/2815) — Expanded the flows destinations: we cloned the HTTP form to stand up a Splunk connector, added auth/region/format selectors, and now surface replay errors inline so users can scroll the list. While shipping that I trimmed the UI config to stop persisting redundant destination overrides.
+- [#2818](https://github.com/axiomhq/app/pull/2818), [#2833](https://github.com/axiomhq/app/pull/2833), [#2822](https://github.com/axiomhq/app/pull/2822) — Tabular mode gained parity with legacy: the matches sidebar respects sticky selections, stream/context views reuse the new helpers, and `ElementsDatasetStore` safely parses `aggChartOpts` before merging chart settings. We also guard row clicks so dragging to select text no longer opens side panels.
+- [#2830](https://github.com/axiomhq/app/pull/2830) — Fixed the trace duration formatter so minute-level spans retain their precision; the underlying logic moved into `util/numbers` with tests so we can reuse it elsewhere.
+- [#2836](https://github.com/axiomhq/app/pull/2836), [#2840](https://github.com/axiomhq/app/pull/2840) — Added `axiom-frontend-server` to the webpack license ignore list (silencing the CI noise) and introduced an `NEXTAUTH_DEBUG` env toggle so we can trace auth flows in staging without hacks.
