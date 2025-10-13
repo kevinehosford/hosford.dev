@@ -8,10 +8,12 @@ export interface LogMetadata {
   tags: Array<string>;
   filename: string;
   excerpt: string;
+  md: string;
 }
 
-export interface LogPost extends LogMetadata {
-  content: string;
+export interface LogPost {
+  metadata: LogMetadata;
+  md: string;
 }
 
 // Import all markdown files using Vite's glob import
@@ -22,20 +24,7 @@ const logFiles = import.meta.glob<string>('../data/logs/*.md', {
 });
 
 function formatDate(dateStr: string): string {
-  const dateMatch = dateStr.match(/^(\d{4})-(\d{2})-(\d{2})$/);
-  if (dateMatch) {
-    const [, year, month] = dateMatch;
-    const date = new Date(Number.parseInt(year), Number.parseInt(month) - 1);
-    return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-  }
-
-  const weekMatch = dateStr.match(/^(\d{4})-W(\d{2})$/);
-  if (weekMatch) {
-    const [, year, week] = weekMatch;
-    const date = new Date(Number.parseInt(year), 0, 1 + (Number.parseInt(week) - 1) * 7);
-    return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-  }
-
+  // FUTURE: maybe format
   return dateStr;
 }
 
@@ -57,6 +46,13 @@ function extractExcerpt(content: string): string {
   }
 
   return '';
+}
+
+function getMetadataMd({ title, tags, date }: Pick<LogMetadata, 'title' | 'tags' | 'date'>): string {
+  return `
+  ## ${date ? `${date} - ` : ''}${title}
+  ${tags.map((tag) => `- ${tag}`).join('\n')}
+  `;
 }
 
 function parseFilename(filename: string, content: string): LogMetadata {
@@ -82,7 +78,7 @@ function parseFilename(filename: string, content: string): LogMetadata {
     const slug = dateMatch[2];
     const formattedDate = formatDate(date);
 
-    return { slug, title, date, formattedDate, tags, filename, excerpt };
+    return { slug, title, date, formattedDate, tags, filename, excerpt, md: getMetadataMd({ title, tags, date }) };
   }
 
   if (weekMatch) {
@@ -91,7 +87,7 @@ function parseFilename(filename: string, content: string): LogMetadata {
     const slug = weekMatch[2];
     const formattedDate = formatDate(date);
 
-    return { slug, title, date, formattedDate, tags, filename, excerpt };
+    return { slug, title, date, formattedDate, tags, filename, excerpt, md: getMetadataMd({ title, tags, date }) };
   }
 
   return {
@@ -102,16 +98,22 @@ function parseFilename(filename: string, content: string): LogMetadata {
     tags,
     filename,
     excerpt,
+    md: getMetadataMd({ title: baseName.replace(/-/g, ' '), tags, date: '' }),
   };
 }
 
-export const getAllLogs = createServerFn({ method: 'GET' }).handler(() => {
-  const logs = Object.entries(logFiles).map(([path, content]) => {
+export const getAllLogs = createServerFn({ method: 'GET' }).handler((): Array<LogPost> => {
+  const logs = Object.entries(logFiles).map(([path, md]) => {
     const filename = path.split('/').pop() || '';
-    return parseFilename(filename, content);
+
+    return {
+      filename,
+      metadata: parseFilename(filename, md),
+      md: md,
+    };
   });
 
-  return logs.sort((a, b) => b.date.localeCompare(a.date));
+  return logs.sort((a, b) => b.filename.localeCompare(a.filename));
 });
 
 export const getLogBySlug = createServerFn({ method: 'GET' })
@@ -131,5 +133,5 @@ export const getLogBySlug = createServerFn({ method: 'GET' })
     const filename = path.split('/').pop() || '';
     const metadata = parseFilename(filename, content);
 
-    return { ...metadata, content };
+    return { metadata, md: content };
   });
