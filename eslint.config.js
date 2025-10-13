@@ -39,6 +39,7 @@ export default defineConfig([
     rules: {
       ...eslintPluginBetterTailwindcss.configs['recommended-warn'].rules,
       ...eslintPluginBetterTailwindcss.configs['recommended-error'].rules,
+      'better-tailwindcss/no-unregistered-classes': 'off',
     },
     settings: {
       'better-tailwindcss': {

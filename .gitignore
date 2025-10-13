@@ -1,4 +1,6 @@
 .tanstack
 .wrangler
+AGENTS.md
+CLAUDE.md
 dist
 node_modules
