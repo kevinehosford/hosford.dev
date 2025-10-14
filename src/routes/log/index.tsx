@@ -5,6 +5,7 @@ import { TagsList } from '@/components/TagsList';
 import { TagListItem } from '@/components/TagListItem';
 import { Tag } from '@/components/Tag';
 import { Heading } from '@/components/Heading';
+import { Datum, Label, Value } from '@/components/Datum';
 
 export const Route = createFileRoute('/log/')({
   ssr: 'data-only',
@@ -30,19 +31,25 @@ function LogList() {
             <Heading.h2>{log.metadata.title}</Heading.h2>
 
             <aside>
-              <p>
-                date:
-                <time dateTime={log.metadata.date}>{log.metadata.formattedDate}</time>
-              </p>
+              <Datum>
+                <Label>date</Label>
+                <Value>
+                  <time dateTime={log.metadata.date}>{log.metadata.formattedDate}</time>
+                </Value>
+              </Datum>
 
-              <TagsList>
-                tags:
-                {log.metadata.tags.map((tag) => (
-                  <TagListItem key={tag}>
-                    <Tag>{tag}</Tag>
-                  </TagListItem>
-                ))}
-              </TagsList>
+              <Datum>
+                <Label>tags</Label>
+                <Value>
+                  <TagsList>
+                    {log.metadata.tags.map((tag) => (
+                      <TagListItem key={tag}>
+                        <Tag>{tag}</Tag>
+                      </TagListItem>
+                    ))}
+                  </TagsList>
+                </Value>
+              </Datum>
             </aside>
             <Markdown>{log.md}</Markdown>
           </section>
