@@ -1,9 +1,56 @@
 @import 'tailwindcss';
 
+@theme {
+  --font-sans: 'Fira Sans', system-ui, sans-serif;
+  --font-mono: 'Fira Code', 'Nimbus Mono PS', 'Courier New', monospace;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --color-page: var(--tokens-background);
+  --color-page-neutral: var(--tokens-background-neutral);
+  --color-default: var(--tokens-text-default);
+  --color-muted: var(--tokens-text-muted);
+  --color-accent: var(--tokens-accent);
+  --color-icon: var(--tokens-icon);
+  --spacing-centered: 80ch;
+}
+
+@layer components {
+  .type-body {
+    font-family: var(--font-sans);
+    font-weight: var(--font-weight-normal);
+  }
+
+  .type-body\/medium {
+    font-family: var(--font-sans);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .type-body\/semibold {
+    font-family: var(--font-sans);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .type-mono {
+    font-family: var(--font-mono);
+    font-weight: var(--font-weight-normal);
+  }
+
+  .type-mono\/medium {
+    font-family: var(--font-mono);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .type-mono\/semibold {
+    font-family: var(--font-mono);
+    font-weight: var(--font-weight-semibold);
+  }
+}
+
 @font-face {
   font-family: 'Fira Sans';
   src: url('/fonts/Fira_Sans/FiraSans-Light.ttf') format('truetype');
-  /* font-weight: 400; */
+  font-weight: 400;
 }
 @font-face {
   font-family: 'Fira Sans';
@@ -20,7 +67,7 @@
 @font-face {
   font-family: 'Fira Code';
   src: url('/public/fonts/Fira_Code/static/FiraCode-Light.ttf') format('truetype');
-  /* font-weight: 400; */
+  font-weight: 400;
 }
 @font-face {
   font-family: 'Fira Code';
@@ -34,33 +81,40 @@
 }
 
 :root {
-  --font-stack: 'Fira Sans', system-ui, sans-serif;
-  --font-stack-code: 'Fira Code', 'Nimbus Mono PS', 'Courier New', monospace;
-  --default-mono-font-family: var(--font-stack-code);
-
-  --font-weight-normal: 400;
-  --font-weight-semibold: 500;
-  --font-weight-bold: 600;
-
-  --color-background: #111111;
-  --color-background-neutral: #222222;
-  --color-text: #eeeeee;
-  --color-text-muted: #b4b4b4;
-  --color-accent: rgb(255, 230, 41);
   --leading-space: 36px;
   --leading-space-small: 18px;
+}
 
-  --max-content-width: 80ch;
+:root:not([data-theme='light']) {
+  --tokens-background: #111111;
+  --tokens-background-neutral: #222222;
+  --tokens-text-default: #eeeeee;
+  --tokens-text-muted: #b4b4b4;
+  --tokens-icon: #b4b4b4;
+}
+
+:root[data-theme='light'] {
+  --tokens-background: #ffffff;
+  --tokens-background-neutral: #f5f5f5;
+  --tokens-text-default: #111111;
+  --tokens-text-muted: #444444;
+  --tokens-icon: #444444;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --tokens-background: #ffffff;
+    --tokens-background-neutral: #f5f5f5;
+    --tokens-text-default: #111111;
+    --tokens-text-muted: #444444;
+    --tokens-icon: #444444;
+  }
 }
 
 body {
   @apply m-0;
-  color: var(--color-text);
-  font-family: var(--font-stack);
-  font-weight: var(--font-weight-normal);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--color-background);
   line-height: 1.675rem;
 }
 
@@ -72,27 +126,19 @@ h5,
 h6 {
   font-weight: var(--font-weight-semibold);
   text-transform: lowercase;
-  /* color: var(--color-text-muted); */
 }
 
 code,
 pre,
 kbd,
 samp {
-  font-family: var(--font-stack-code);
-  background-color: var(--color-background-neutral);
-}
-
-a {
-  text-decoration: underline dotted;
-  text-decoration-color: var(--color-accent);
-  transition: all 0.2s;
+  background-color: var(--color-page-neutral);
 }
 
 a {
   text-decoration: none;
   white-space: nowrap;
-  color: var(--color-text);
+  color: var(--color-default);
   position: relative;
 }
 

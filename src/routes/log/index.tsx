@@ -20,7 +20,7 @@ function LogList() {
   const { logs } = Route.useLoaderData();
 
   return (
-    <main className="mx-auto space-y-12 lg:max-w-[var(--max-content-width)]">
+    <main className="mx-auto space-y-12 lg:max-w-centered">
       <Heading.h1>dev log</Heading.h1>
 
       {logs.length === 0 ? (

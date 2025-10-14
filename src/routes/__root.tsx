@@ -3,6 +3,8 @@ import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
 import { TanStackDevtools } from '@tanstack/react-devtools';
 
 import appCss from '../styles.css?url';
+import { ThemeSwitcher } from '@/components/ThemeSwitcher';
+import { PrimaryNav } from '@/components/PrimaryNav';
 
 export const Route = createRootRoute({
   head: () => ({
@@ -37,7 +39,10 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body className="px-4 sm:px-0">
+      <body className="type-body bg-page px-4 text-default sm:px-0">
+        <div className="sticky top-0 flex items-center justify-end p-4">
+          <PrimaryNav />
+        </div>
         {children}
         {showDevtools && (
           <TanStackDevtools
