@@ -17,7 +17,7 @@
   --color-background: #FFFFFF;
   --color-text: #191919;
   --color-text-muted: #222222;
-  --color-accent: hotpink;
+  --color-accent: rgb(255, 230, 41);
   --leading-space: 36px;
   --leading-space-small: 18px;
 }
@@ -57,10 +57,27 @@ a {
   transition: all 0.2s;
 }
 
-a:hover {
-  text-decoration: underline solid;
-  text-decoration-color: var(--color-accent);
-  background: linear-gradient(to top, #ffcce6 45%, transparent 45%);
+a {
+  text-decoration: none;
+  white-space: nowrap;
+  color: var(--color-text);
+  position: relative;
+}
+
+a:after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 66%;
+  left: -0.1em;
+  right: -0.1em;
+  bottom: 0;
+  transition: top 200ms cubic-bezier(0, 0.8, 0.13, 1);
+  background-color: rgba(0, 144, 255, 0.5);
+}
+
+a:hover:after {
+  top: 0%;
 }
 
 p,
