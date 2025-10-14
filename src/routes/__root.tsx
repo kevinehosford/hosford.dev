@@ -37,7 +37,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body>
+      <body className="px-4 sm:px-0">
         {children}
         {showDevtools && (
           <TanStackDevtools

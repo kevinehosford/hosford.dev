@@ -40,6 +40,8 @@ export default defineConfig([
       ...eslintPluginBetterTailwindcss.configs['recommended-warn'].rules,
       ...eslintPluginBetterTailwindcss.configs['recommended-error'].rules,
       'better-tailwindcss/no-unregistered-classes': 'off',
+      // Disable line wrapping rule - conflicts with Prettier
+      'better-tailwindcss/enforce-consistent-line-wrapping': 'off',
     },
     settings: {
       'better-tailwindcss': {

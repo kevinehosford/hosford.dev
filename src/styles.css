@@ -1,25 +1,21 @@
 @import 'tailwindcss';
 
 :root {
-  --font-stack: ui-monospace,
-    'Cascadia Code',
-    'Source Code Pro',
-    Menlo,
-    Consolas,
-    'DejaVu Sans Mono',
-    monospace;
+  --font-stack: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
   --font-stack-code: 'Nimbus Mono PS', 'Courier New', monospace;
 
   --font-weight-normal: 400;
   --font-weight-semibold: 500;
   --font-weight-bold: 600;
 
-  --color-background: #FFFFFF;
+  --color-background: #ffffff;
   --color-text: #191919;
   --color-text-muted: #222222;
   --color-accent: rgb(255, 230, 41);
   --leading-space: 36px;
   --leading-space-small: 18px;
+
+  --max-content-width: 80ch;
 }
 
 body {
@@ -65,7 +61,7 @@ a {
 }
 
 a:after {
-  content: "";
+  content: '';
   position: absolute;
   z-index: -1;
   top: 66%;

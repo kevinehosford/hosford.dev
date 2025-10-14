@@ -1,4 +1,5 @@
 .tanstack
+.vscode
 .wrangler
 AGENTS.md
 CLAUDE.md
