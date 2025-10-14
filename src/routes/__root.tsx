@@ -3,7 +3,6 @@ import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
 import { TanStackDevtools } from '@tanstack/react-devtools';
 
 import appCss from '../styles.css?url';
-import { ThemeSwitcher } from '@/components/ThemeSwitcher';
 import { PrimaryNav } from '@/components/PrimaryNav';
 
 export const Route = createRootRoute({
