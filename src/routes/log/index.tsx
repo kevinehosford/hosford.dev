@@ -22,7 +22,7 @@ function LogList() {
 
   return (
     <main className="mx-auto space-y-12 lg:max-w-centered">
-      <TermType input="development log" duration={1_500} delay={2_000} className="text-4xl" />
+      <TermType input="development log" duration={1_500} delay={2_000} className="text-2xl sm:text-4xl" />
 
       {logs.length === 0 ? (
         <p>no logs yet</p>
