@@ -12,6 +12,8 @@
   --color-muted: var(--tokens-text-muted);
   --color-accent: var(--tokens-accent);
   --color-icon: var(--tokens-icon);
+  --color-inverse: var(--tokens-text-inverse);
+  --color-background-inverse: var(--tokens-background-inverse);
   --spacing-centered: 80ch;
 }
 
@@ -122,6 +124,7 @@
   --tokens-text-muted: #b4b4b4;
   --tokens-icon: #b4b4b4;
   --tokens-text-inverse: #000000;
+  --tokens-background-inverse: #6e6e6e;
 }
 
 :root[data-theme='light'] {
@@ -131,6 +134,7 @@
   --tokens-text-muted: #444444;
   --tokens-icon: #444444;
   --tokens-text-inverse: #ffffff;
+  --tokens-background-inverse: #000000;
 }
 
 @media (prefers-color-scheme: light) {
@@ -141,6 +145,7 @@
     --tokens-text-muted: #444444;
     --tokens-icon: #444444;
     --tokens-text-inverse: #ffffff;
+    --tokens-background-inverse: #000000;
   }
 }
 
@@ -166,6 +171,7 @@ pre,
 kbd,
 samp {
   background-color: var(--color-page-neutral);
+  font-weight: var(--font-weight-medium);
 }
 
 a {
