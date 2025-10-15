@@ -51,17 +51,19 @@ export function TermType({ input, duration, delay, className }: TermTypeProps) {
   }, [setStart, delay]);
 
   return (
-    <Heading.h1 className={twMerge('flex items-baseline font-mono whitespace-pre', className)}>
+    <Heading.h1 className={twMerge('flex flex-wrap items-baseline font-mono', className)}>
       {input.split('').map((letter, index) => {
         if (index > offset) return null;
         const isCurrentLetter = index === offset;
         return isCurrentLetter ? (
-          <span className="relative py-1 leading-none" key={`${letter}-${index}`}>
+          <span className="relative py-1 leading-none whitespace-pre" key={`${letter}-${index}`}>
             <span className="terminal-cursor absolute inset-0 bg-current"></span>
             <span className="terminal-cursor-text relative z-10">{letter}</span>
           </span>
         ) : (
-          <span key={`${letter}-${index}`}>{letter}</span>
+          <span className="whitespace-pre" key={`${letter}-${index}`}>
+            {letter}
+          </span>
         );
       })}
       {offset === -1 && (

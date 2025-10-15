@@ -149,8 +149,13 @@
   }
 }
 
+html {
+  overflow-x: hidden;
+}
+
 body {
   @apply m-0;
+  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.675rem;
@@ -174,11 +179,25 @@ samp {
   font-weight: var(--font-weight-medium);
 }
 
+pre {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+code {
+  word-break: break-word;
+}
+
 a {
   text-decoration: none;
-  white-space: nowrap;
   color: var(--color-default);
   position: relative;
+}
+
+@media (min-width: 640px) {
+  a {
+    white-space: nowrap;
+  }
 }
 
 a:after {
@@ -201,5 +220,13 @@ a:hover:after {
 p,
 ul,
 aside {
-  padding: 0 var(--leading-space);
+  padding: 0 var(--leading-space-small);
+}
+
+@media (min-width: 640px) {
+  p,
+  ul,
+  aside {
+    padding: 0 var(--leading-space);
+  }
 }

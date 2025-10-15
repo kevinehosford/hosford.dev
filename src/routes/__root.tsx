@@ -54,7 +54,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body className="type-body space-y-10 bg-page p-6 text-default">
+      <body className="type-body w-full space-y-10 bg-page p-6 text-default">
         <div className="flex items-center justify-between">
           <Logo className="h-8 w-8 rounded-full" />
           <PrimaryNav />
