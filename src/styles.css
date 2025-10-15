@@ -45,6 +45,36 @@
     font-family: var(--font-mono);
     font-weight: var(--font-weight-semibold);
   }
+
+  .terminal-cursor {
+    animation: blink 1s step-end infinite;
+  }
+
+  .terminal-cursor-text {
+    animation: blink-text 1s step-end infinite;
+  }
+
+  @keyframes blink {
+    0%,
+    50% {
+      opacity: 1;
+    }
+    50.01%,
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes blink-text {
+    0%,
+    50% {
+      color: var(--tokens-text-inverse);
+    }
+    50.01%,
+    100% {
+      color: var(--tokens-text-default);
+    }
+  }
 }
 
 @font-face {
@@ -86,11 +116,12 @@
 }
 
 :root:not([data-theme='light']) {
-  --tokens-background: #111111;
+  --tokens-background: #000000;
   --tokens-background-neutral: #222222;
   --tokens-text-default: #eeeeee;
   --tokens-text-muted: #b4b4b4;
   --tokens-icon: #b4b4b4;
+  --tokens-text-inverse: #000000;
 }
 
 :root[data-theme='light'] {
@@ -99,6 +130,7 @@
   --tokens-text-default: #111111;
   --tokens-text-muted: #444444;
   --tokens-icon: #444444;
+  --tokens-text-inverse: #ffffff;
 }
 
 @media (prefers-color-scheme: light) {
@@ -108,6 +140,7 @@
     --tokens-text-default: #111111;
     --tokens-text-muted: #444444;
     --tokens-icon: #444444;
+    --tokens-text-inverse: #ffffff;
   }
 }
 

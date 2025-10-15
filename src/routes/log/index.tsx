@@ -6,6 +6,7 @@ import { TagListItem } from '@/components/TagListItem';
 import { Tag } from '@/components/Tag';
 import { Heading } from '@/components/Heading';
 import { Datum, Label, Value } from '@/components/Datum';
+import { TermType } from '@/components/TermType';
 
 export const Route = createFileRoute('/log/')({
   ssr: 'data-only',
@@ -21,7 +22,7 @@ function LogList() {
 
   return (
     <main className="mx-auto space-y-12 lg:max-w-centered">
-      <Heading.h1>dev log</Heading.h1>
+      <TermType input="development log" duration={1_500} delay={2_000} className="text-4xl" />
 
       {logs.length === 0 ? (
         <p>no logs yet</p>
