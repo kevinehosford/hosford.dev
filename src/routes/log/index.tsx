@@ -15,7 +15,9 @@ export const Route = createFileRoute('/log/')({
     return { logs };
   },
   staleTime: Infinity,
+  gcTime: Infinity,
   component: LogList,
+  shouldReload: () => false,
 });
 
 function LogList() {

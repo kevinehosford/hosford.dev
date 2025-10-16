@@ -29,7 +29,9 @@ export const ProfileLink = ({
   const wrapperClasses = iconWrapperClassName
     ? `flex size-6 items-center justify-center ${iconWrapperClassName}`
     : 'flex size-6 items-center justify-center';
-  const iconClasses = iconClassName ? `max-h-full max-w-full fill-current ${iconClassName}` : 'h-full w-full fill-current';
+  const iconClasses = iconClassName
+    ? `max-h-full max-w-full fill-current ${iconClassName}`
+    : 'h-full w-full fill-current';
   const computedRel = target === '_blank' ? (rel ?? 'noopener noreferrer') : rel;
 
   return (

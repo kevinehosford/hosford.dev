@@ -57,11 +57,11 @@ function RouteComponent() {
           </p>
         </div>
       </section>
-      <aside className="flex w-full flex-col gap-4 rounded-lg border border-[rgba(0,0,0,0.15)] bg-[color-mix(in_srgb,var(--color-page)_95%,#ffffff_5%)] p-4 shadow-[0_0_0_1px_rgba(255,255,255,0.02)] sm:gap-5 sm:p-6 lg:max-w-xs lg:min-w-[260px] lg:border-none lg:bg-transparent lg:p-0 lg:shadow-none">
+      <aside className="flex w-full flex-col gap-4 p-4 sm:gap-5 sm:p-6 lg:max-w-xs lg:min-w-[260px] lg:p-0">
         <span className="type-body/semibold text-sm tracking-[0.2em] text-muted uppercase sm:text-base">
           find me online
         </span>
-        <ul className="grid w-full [grid-auto-rows:auto] grid-cols-1 gap-3 px-0 sm:[grid-template-columns:repeat(auto-fit,minmax(160px,1fr))] sm:gap-4">
+        <ul className="grid w-full [grid-auto-rows:auto] grid-cols-1 gap-3 px-0 sm:[grid-template-columns:repeat(auto-fit,minmax(160px,1fr))] sm:gap-4 sm:!pl-0">
           {profileLinks.map((profile) => (
             <li key={profile.href}>
               <ProfileLink
