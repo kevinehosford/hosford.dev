@@ -1,4 +1,4 @@
-import { HeadContent, Outlet, Scripts, createRootRoute } from '@tanstack/react-router';
+import { HeadContent, Link, Outlet, Scripts, createRootRoute } from '@tanstack/react-router';
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
 import { TanStackDevtools } from '@tanstack/react-devtools';
 import appCss from '../styles.css?url';
@@ -56,7 +56,9 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </head>
       <body className="type-body w-full space-y-10 bg-page p-6 text-default">
         <div className="flex items-center justify-between">
-          <Logo className="h-8 w-8 rounded-full" />
+          <Link to="/about" className="no-style">
+            <Logo className="h-8 w-8 rounded-full" />
+          </Link>
           <PrimaryNav />
         </div>
         {children}

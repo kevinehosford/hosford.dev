@@ -188,7 +188,7 @@ code {
   word-break: break-word;
 }
 
-a {
+a:not(.no-style) {
   text-decoration: none;
   color: var(--color-default);
   position: relative;
@@ -200,7 +200,7 @@ a {
   }
 }
 
-a:after {
+a:not(.no-style):after {
   content: '';
   position: absolute;
   z-index: -1;

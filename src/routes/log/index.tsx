@@ -14,6 +14,7 @@ export const Route = createFileRoute('/log/')({
     const logs = await getAllLogs();
     return { logs };
   },
+  staleTime: Infinity,
   component: LogList,
 });
 
