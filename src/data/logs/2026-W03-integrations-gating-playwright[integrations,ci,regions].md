@@ -1,0 +1,6 @@
+### Overview
+Short week back. Sorted out how integrations should be gated now that we have edge-EU as a distinct thing from legacy-EU, and put the Playwright merge job into a state where it doesn't block PRs when there are no reports to merge.
+
+### Highlights
+- [#6741](https://github.com/axiomhq/app/pull/6741), [#6765](https://github.com/axiomhq/app/pull/6765) — Reworked `IntegrationsPage` gating: dropped the org/region check in favor of `isEnvEuProd()` + `useFeatureFlags()` with a new `edge-integrations-enabled` flag (default false), then realized that broke orgs that aren't region-features-limited and put `isOrgRegionFeaturesLimited` back into `shouldShowBanner`. Banner shows for legacy EU, or for region-limited orgs when the flag is off; otherwise integrations are visible.
+- [#6732](https://github.com/axiomhq/app/pull/6732), [#6733](https://github.com/axiomhq/app/pull/6733) — Reshaped the `playwright-merge` workflow: added a `Check for downloaded reports` step, gated merge / artifact upload / Vercel deploy / summary on `reports-exist`, let the artifact download `continue-on-error`, restored the `daun/playwright-report-summary` output with the Vercel preview URL, and tightened `safe.directory` / Vercel upload conditions. Pulled `Merge E2E partials` off the required-check list so the merge job stops being a blocker.

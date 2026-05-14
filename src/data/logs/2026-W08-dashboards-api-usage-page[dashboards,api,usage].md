@@ -1,0 +1,7 @@
+### Overview
+Quiet week. Extracted the validation that was fragmented across dashboard forms/logic into a single canonical schema (the start of a real public dashboards API), fixed an inverted condition that was showing the wrong UsagePage to non-EU users, and untangled which form is the source of truth for APL after the multi-query change.
+
+### Highlights
+- [#7197](https://github.com/axiomhq/app/pull/7197) — Started extracting a comprehensive validation schema for dashboards so we can attach it to the create/update endpoints. The schema constrains as much as we can pin down and annotates the messy bits (e.g. `NoteChart*` payloads carry a `query` that's an `unknown` because nothing reads it). Also includes utility scripts to run the schema against real-world dashboard payloads for a sanity pass before we light up enforcement.
+- [#7167](https://github.com/axiomhq/app/pull/7167) — When the `billingAddOns` flag got replaced by `isEnvEuProd()` a few commits back, the `!` negation got left in, so non-EU users were getting the legacy charts-only UsagePage instead of `UsagePageNext` with the summary cells. Flipped it the right way: EU prod sees the legacy page, everyone else sees Next.
+- [#7209](https://github.com/axiomhq/app/pull/7209) — The multi-query PR pointed Run/Save/preview at the dashboard form's query, but the APL editor only writes the query form, so edited APL was getting ignored. Extracted `resolveCurrentSingleQuery` to pick the source of truth by query type — query form for APL, dashboard form for structured.

@@ -1,0 +1,7 @@
+### Overview
+All `ctrl`-side this week. Standardized task definitions across the monorepo to let Turbo's dependency graph do the build wiring instead of hand-rolled `pnpm --filter` chains, organized the console app to match the directory-structure plan (router context, providers, API consumption all refactored), and fixed a CI status reporting hole that left required checks hanging when PRs didn't touch infra.
+
+### Highlights
+- [axiomhq/ctrl#74](https://github.com/axiomhq/ctrl/pull/74) — Removed the manual dependency chaining from the build scripts (`apps/console`, `apps/api`, and `apps/workers` were each calling `pnpm --filter` to pre-build workspace deps that Turbo already knows about), and added stub scripts on the apps that lacked them so top-level calls have full coverage. Now Turbo's topological graph handles the order.
+- [axiomhq/ctrl#86](https://github.com/axiomhq/ctrl/pull/86) — Organized `apps/console` to match the directory structure agreed on earlier. Refactored router context, providers, and API consumption to fit, and updated the docs.
+- [axiomhq/ctrl#107](https://github.com/axiomhq/ctrl/pull/107) — Required status checks were hanging on "Waiting for status to be reported" when a PR didn't touch `infra/primary/terraform/**` (the workflow trigger filter meant the workflow didn't even start). Moved the path filter out of the trigger and into a `changes` job so the workflow always runs and always reports a status, even if it's a no-op.
