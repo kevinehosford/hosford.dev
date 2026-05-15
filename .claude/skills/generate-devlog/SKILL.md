@@ -15,14 +15,14 @@ Generate dev log entries for `src/data/logs/` from `gh` PR activity. Single week
 
 ## Inputs
 
-| Form | Meaning |
-|------|---------|
-| empty / "this week" | current ISO week |
-| `YYYY-WXX` | one week |
+| Form                   | Meaning                                                           |
+| ---------------------- | ----------------------------------------------------------------- |
+| empty / "this week"    | current ISO week                                                  |
+| `YYYY-WXX`             | one week                                                          |
 | "backfill" / "missing" | every gap week from newest existing entry up to previous ISO week |
-| `--repos repo1,repo2` | override default repo list |
-| `--dry-run` | print, don't write |
-| `--no-commit` | write files, skip commit/push |
+| `--repos repo1,repo2`  | override default repo list                                        |
+| `--dry-run`            | print, don't write                                                |
+| `--no-commit`          | write files, skip commit/push                                     |
 
 ## Workflow
 

@@ -5,3 +5,5 @@ AGENTS.md
 CLAUDE.md
 dist
 node_modules
+bun.lock
+.claude/settings.local.json

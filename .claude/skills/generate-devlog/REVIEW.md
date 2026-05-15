@@ -4,14 +4,14 @@ Run before every commit. Mandatory.
 
 ## Strip these
 
-| Pattern | Why | Action |
-|---------|-----|--------|
-| `AXM-\d+`, `CTRL-\d+` | Internal Linear/Jira ticket IDs | Remove the parenthetical |
-| Past vulnerability disclosures | "X was leaking into Y", "auth bypass", "token exposure", etc. | Reword neutrally or drop |
-| Customer names | Real org names from PR bodies | Replace with "a customer" or drop |
-| Slack/Loom/Notion URLs | Internal links | Drop |
-| Specific user emails / IDs | PII | Drop |
-| Production secret values | Anything that looks like a token | Drop — keep env var *name* only |
+| Pattern                        | Why                                                           | Action                            |
+| ------------------------------ | ------------------------------------------------------------- | --------------------------------- |
+| `AXM-\d+`, `CTRL-\d+`          | Internal Linear/Jira ticket IDs                               | Remove the parenthetical          |
+| Past vulnerability disclosures | "X was leaking into Y", "auth bypass", "token exposure", etc. | Reword neutrally or drop          |
+| Customer names                 | Real org names from PR bodies                                 | Replace with "a customer" or drop |
+| Slack/Loom/Notion URLs         | Internal links                                                | Drop                              |
+| Specific user emails / IDs     | PII                                                           | Drop                              |
+| Production secret values       | Anything that looks like a token                              | Drop — keep env var _name_ only   |
 
 ## Keep these
 

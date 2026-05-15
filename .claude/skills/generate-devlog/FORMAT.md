@@ -18,9 +18,11 @@ No frontmatter. No title heading. File opens directly with `### Overview`.
 
 ```markdown
 ### Overview
+
 [1–3 sentences. Verb-forward. Dense.]
 
 ### Highlights
+
 - [PR link(s)] — [Dense paragraph. 2–4 sentences with technical specifics.]
 - [PR link(s)] — [...]
 ```
@@ -30,7 +32,7 @@ No frontmatter. No title heading. File opens directly with `### Overview`.
 1. Lead with PR refs. Multiple related PRs chained with commas:
    `[#1234](https://github.com/axiomhq/app/pull/1234), [#1235](https://github.com/axiomhq/app/pull/1235)`
 2. Cross-repo: `[axiomhq/ctrl#42](https://github.com/axiomhq/ctrl/pull/42)`
-3. Em dash separator: ` — ` between links and prose
+3. Em dash separator: `—` between links and prose
 4. Backtick file names, components, env vars, functions, props
 5. Single dense paragraph per bullet — never sub-bullets
 6. Group related PRs into one bullet, not one bullet per PR
@@ -38,17 +40,18 @@ No frontmatter. No title heading. File opens directly with `### Overview`.
 
 ## Length
 
-| Week intensity | Overview | Bullets | Per-bullet |
-|---|---|---|---|
-| Heavy (8+ merged PRs) | 2–3 sentences | 4–6 | 3–5 sentences |
-| Normal (3–7 PRs) | 1–2 sentences | 2–4 | 2–3 sentences |
-| Light (1–2 PRs) | 1 sentence | 1–2 | 1–2 sentences |
-| Quiet/holiday (0 PRs) | 1 sentence | none | — |
+| Week intensity        | Overview      | Bullets | Per-bullet    |
+| --------------------- | ------------- | ------- | ------------- |
+| Heavy (8+ merged PRs) | 2–3 sentences | 4–6     | 3–5 sentences |
+| Normal (3–7 PRs)      | 1–2 sentences | 2–4     | 2–3 sentences |
+| Light (1–2 PRs)       | 1 sentence    | 1–2     | 1–2 sentences |
+| Quiet/holiday (0 PRs) | 1 sentence    | none    | —             |
 
 ## Quiet-week template
 
 ```markdown
 ### Overview
+
 Holiday break. No PRs landed this week.
 ```
 
@@ -56,6 +59,7 @@ or
 
 ```markdown
 ### Overview
+
 Quiet week. No merges landed.
 ```
 
