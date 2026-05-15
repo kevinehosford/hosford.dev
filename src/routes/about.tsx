@@ -6,8 +6,31 @@ import InstagramIcon from '@/assets/instagram.svg?react';
 import LinkedinIcon from '@/assets/linkedin.svg?react';
 import XIcon from '@/assets/x.svg?react';
 import { Heading } from '@/components/Heading';
+import { SITE_NAME, SITE_URL, TWITTER_HANDLE } from '@/lib/site';
+
+const ABOUT_TITLE = 'About — Kevin Hosford';
+const ABOUT_DESCRIPTION =
+  'Kevin Hosford — front-end team lead at Axiom. Links to GitHub, LinkedIn, Bluesky, X, Instagram.';
+const ABOUT_URL = `${SITE_URL}/about`;
 
 export const Route = createFileRoute('/about')({
+  head: () => ({
+    meta: [
+      { title: ABOUT_TITLE },
+      { name: 'description', content: ABOUT_DESCRIPTION },
+      { property: 'og:title', content: ABOUT_TITLE },
+      { property: 'og:description', content: ABOUT_DESCRIPTION },
+      { property: 'og:url', content: ABOUT_URL },
+      { property: 'og:type', content: 'website' },
+      { property: 'og:site_name', content: SITE_NAME },
+      { name: 'twitter:card', content: 'summary' },
+      { name: 'twitter:title', content: ABOUT_TITLE },
+      { name: 'twitter:description', content: ABOUT_DESCRIPTION },
+      { name: 'twitter:site', content: TWITTER_HANDLE },
+      { name: 'twitter:creator', content: TWITTER_HANDLE },
+    ],
+    links: [{ rel: 'canonical', href: ABOUT_URL }],
+  }),
   component: RouteComponent,
 });
 
