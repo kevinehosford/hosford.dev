@@ -32,7 +32,7 @@ a few things stand out as worth understanding better:
   - `/share` uploads it as a private gist with a shareable html link
 - a few entry types are unclear from the docs (labels, compactions, branch summaries, extension entries). scope: focus on message entries and auto-save; defer extensions for now.
 - spin up a session that exercises a chunk of pi's session-logging functionality, then look at the raw file.
-- spelunk the source from `SessionManager` outward; `pi-ai` and `pi-coding-agent` mark the package boundary.
+- spelunk the source from `SessionManager` outward.
 
 ## What I found
 
