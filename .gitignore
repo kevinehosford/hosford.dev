@@ -9,3 +9,6 @@ dist
 node_modules
 bun.lock
 .claude/settings.local.json
+.claude/skills/
+.agents/
+skills-lock.json
