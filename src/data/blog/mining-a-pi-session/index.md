@@ -7,10 +7,10 @@ tags:
   - sessions
   - agent
   - harness
-excerpt: Spelunking Pi's session storage — JSONL on disk, directory layout, and how SessionManager writes entries.
+excerpt: Spelunking Pi's session storage. JSONL on disk, directory layout, and how SessionManager writes entries.
 ---
 
-pi auto-saves every session as a jsonl file in `~/.pi/agent/sessions/`, organized into per-cwd subdirs. each line is an entry with a `type` discriminator — `message`, `model_change`, `thinking_level_change`, and a handful of others — and the first line is always a `SessionHeader` with the session id, timestamp, and the cwd it belongs to. seemed like a fun thing to poke at.
+pi auto-saves every session as a jsonl file in `~/.pi/agent/sessions/`, organized into per-cwd subdirs. each line is an entry with a `type` discriminator (`message`, `model_change`, `thinking_level_change`, and a handful of others), and the first line is always a `SessionHeader` with the session id, timestamp, and the cwd it belongs to. seemed fun to explore.
 
 ## What I want to learn
 
@@ -20,18 +20,16 @@ a few things stand out as worth understanding better:
 - how is "organized by working directory" encoded in the persisted sessions?
   - is the cwd in the file name or the dir name?
 - how is the auto-save implemented?
-- pick up a few basic pi commands along the way — `/session`, `/export`, `/share`, that kind of thing.
+- learn a few basic pi commands like `/session`, `/export`, `/share`.
 
 ## Approach
-
-the approach:
 
 - read the rest of the docs. the interesting commands worth noting:
   - `/session` shows the current session's file, id, message count, tokens, and cost
   - `/export <file>` writes the session to html
   - `/share` uploads it as a private gist with a shareable html link
 - a few entry types are unclear from the docs (labels, compactions, branch summaries, extension entries). scope: focus on message entries and auto-save; defer extensions for now.
-- spin up a session that exercises a chunk of pi's session-logging functionality, then crack open the file.
+- spin up a session that exercises a chunk of pi's session-logging functionality, then look at the raw file.
 - spelunk the source from `SessionManager` outward; `pi-ai` and `pi-coding-agent` mark the package boundary.
 
 ## What I found
@@ -43,7 +41,7 @@ la ~/.pi/agent/sessions
 total 0 drwxr-xr-x 4 khosford staff 128B May 25 14:10 --Users-khosford-source-agent-o11y--
 ```
 
-dir structure in the wild — sessions land in subdirs named by the full working directory path.
+dir structure in the wild. sessions land in subdirs named by the full working directory path.
 
 ```sh
 la
@@ -59,7 +57,13 @@ cat 2026-05-25T10-50-54-478Z_019e5ec2-548e-71c9-9244-338453419335.jsonl
 ```
 
 ```json
-{"type":"session","version":3,"id":"019e5ec2-548e-71c9-9244-338453419335","timestamp":"2026-05-25T10:50:54.478Z","cwd":"/Users/khosford/source/agent-o11y"}
+{
+  "type": "session",
+  "version": 3,
+  "id": "019e5ec2-548e-71c9-9244-338453419335",
+  "timestamp": "2026-05-25T10:50:54.478Z",
+  "cwd": "/Users/khosford/source/agent-o11y"
+}
 ```
 
 no `parentSession`.
@@ -69,7 +73,13 @@ cat 2026-05-25T11-33-00-547Z_019e5ee8-e003-7827-a25f-5051e2c92e96.jsonl
 ```
 
 ```json
-{"type":"session","version":3,"id":"019e5ee8-e003-7827-a25f-5051e2c92e96","timestamp":"2026-05-25T11:33:00.547Z","cwd":"/Users/khosford/source/agent-o11y"}
+{
+  "type": "session",
+  "version": 3,
+  "id": "019e5ee8-e003-7827-a25f-5051e2c92e96",
+  "timestamp": "2026-05-25T11:33:00.547Z",
+  "cwd": "/Users/khosford/source/agent-o11y"
+}
 ```
 
 still no `parentSession`.
@@ -80,10 +90,20 @@ still no `parentSession`.
 {"type":"model_change","id":"842a29c5","parentId":"872b829f","timestamp":"2026-05-25T13:08:50.563Z","provider":"openai-codex","modelId":"gpt-5.5"}
 ```
 
-kimi-k2.6 at the start — seems like the default since i didn't pick it. then an intentional switch to gpt-5.5 because i wanted to use my codex subscription.
+kimi-k2.6 at the start. seems like the default since i didn't pick it. then an intentional switch to gpt-5.5 because i wanted to use my codex subscription.
 
 ```json
-{"type":"message","id":"4b16fec1","parentId":"842a29c5","timestamp":"2026-05-25T13:10:23.952Z","message":{"role":"user","content":[{"type":"text","text":"hi pi. which model is currently active"}],"timestamp":1779714623951}}
+{
+  "type": "message",
+  "id": "4b16fec1",
+  "parentId": "842a29c5",
+  "timestamp": "2026-05-25T13:10:23.952Z",
+  "message": {
+    "role": "user",
+    "content": [{ "type": "text", "text": "hi pi. which model is currently active" }],
+    "timestamp": 1779714623951
+  }
+}
 ```
 
 first user message. `type: "message"` with `message: { role: "user", content: ... }`. nothing unexpected, but cool to see it demystified.
@@ -93,7 +113,7 @@ jq -s '[.[] | .type] | unique' 2026-05-25T11-33-00-547Z_019e5ee8-e003-7827-a25f-
 ```
 
 ```json
-[ "message", "model_change", "session", "thinking_level_change" ]
+["message", "model_change", "session", "thinking_level_change"]
 ```
 
 ```json
@@ -101,10 +121,23 @@ jq -s '[.[] | .type] | unique' 2026-05-25T11-33-00-547Z_019e5ee8-e003-7827-a25f-
 {"type":"message","id":"19db520c","parentId":"fc7e9729","timestamp":"2026-05-25T13:38:04.259Z","message":{"role":"assistant","content":[{"type":"toolCall","id":"call_VBYO4RjPNO8a8POgBhXEbJIx|fc_05bca4ab54563ec1016a1450bbc85c8191a26df0adaf45adcc","name":"bash","arguments":{"command":"date","timeout":5}}],"api":"openai-codex-responses","provider":"openai-codex","model":"gpt-5.5","usage":{...},"stopReason":"toolUse","timestamp":1779716281680,"responseId":"resp_05bca4ab54563ec1016a1450ba72bc8191ae3a9d8a77acaa4e"}}
 ```
 
-asked the agent to use a tool. was unsure if tool calls get their own message type. they don't — still just `type: "message"` with the tool call inside `content`.
+asked the agent to use a tool. was unsure if tool calls get their own message type. they don't. still `type: "message"` with the tool call inside `content`.
 
 ```json
-{"type":"message","id":"84b48fbb","parentId":"19db520c","timestamp":"2026-05-25T13:38:04.267Z","message":{"role":"toolResult","toolCallId":"call_VBYO4RjPNO8a8POgBhXEbJIx|fc_05bca4ab54563ec1016a1450bbc85c8191a26df0adaf45adcc","toolName":"bash","content":[{"type":"text","text":"Mon May 25 14:38:04 BST 2026\n"}],"isError":false,"timestamp":1779716284267}}
+{
+  "type": "message",
+  "id": "84b48fbb",
+  "parentId": "19db520c",
+  "timestamp": "2026-05-25T13:38:04.267Z",
+  "message": {
+    "role": "toolResult",
+    "toolCallId": "call_VBYO4RjPNO8a8POgBhXEbJIx|fc_05bca4ab54563ec1016a1450bbc85c8191a26df0adaf45adcc",
+    "toolName": "bash",
+    "content": [{ "type": "text", "text": "Mon May 25 14:38:04 BST 2026\n" }],
+    "isError": false,
+    "timestamp": 1779716284267
+  }
+}
 ```
 
 ```json
@@ -141,7 +174,15 @@ Cost
 Total: 0.9118
 ```
 
-then `/share` to upload the session as a private gist — [share url](https://pi.dev/session/#a3a948563a89d303038c38f92642e5fb), [gist](https://gist.github.com/kevinehosford/a3a948563a89d303038c38f92642e5fb).
+then `/share` to upload the session as a private gist:
+
+```sh
+/share
+share url: https://pi.dev/session/#a3a948563a89d303038c38f92642e5fb
+gist: https://gist.github.com/kevinehosford/a3a948563a89d303038c38f92642e5fb
+```
+
+view the pi session here: [https://pi.dev/session/#a3a948563a89d303038c38f92642e5fb](https://pi.dev/session/#a3a948563a89d303038c38f92642e5fb)
 
 ### Code spelunking
 
@@ -170,7 +211,7 @@ the agent produced some nice reference material on the inner workings of pi. fol
 /export /Users/khosford/source/agent-o11y/pi-spelunk.html
 ```
 
-the export renders nicely in the browser. rather than dropping a screenshot here, i'll point at the gist linked at the end of the post — same content, shareable.
+the export renders nicely in the browser. rather than dropping a screenshot here, i'll point to the share url at the end of the post.
 
 ### Questions to answer this spelunking
 
@@ -209,9 +250,9 @@ _persist(entry: SessionEntry): void {
 }
 ```
 
-the public `append*` functions all funnel through the internal `_appendEntry`, which pushes the entry into in-memory state and immediately calls `_persist`. `_persist` writes synchronously via `appendFileSync` — with one wrinkle. nothing actually hits disk until the first assistant entry shows up. before that, entries accumulate in `fileEntries`. when the first assistant message arrives, the whole backlog flushes in one pass, and from then on each new entry appends per-call.
+the public `append*` functions all funnel through the internal `_appendEntry`, which pushes the entry into in-memory state and immediately calls `_persist`. `_persist` writes synchronously via `appendFileSync`, but nothing actually hits disk until the first assistant entry shows up. before that, entries accumulate in `fileEntries`. when the first assistant message arrives, the whole backlog flushes in one pass, and from then on each new entry appends per-call.
 
-2. is the path/format configurable (env var, config file, flag)? yes/no, one sentence.
+2. is the path/format configurable (env var, config file, flag)?
 
 ```ts
 newSession(options?: NewSessionOptions): string | undefined {
@@ -239,9 +280,17 @@ newSession(options?: NewSessionOptions): string | undefined {
 }
 ```
 
-no — `newSession`'s options don't accept a path override, and `getSessionDir()` is computed from `this.cwd`. you get `~/.pi/agent/sessions/<cwd-encoded>/<timestamp>_<id>.jsonl` and that's it.
+no. `newSession`'s options don't accept a path override, and `getSessionDir()` is computed from `this.cwd`. you get `~/.pi/agent/sessions/<cwd-encoded>/<timestamp>_<id>.jsonl` and that's it.
 
-and finally `/share` on the spelunking session to leave a gist behind — [share url](https://pi.dev/session/#602e4da4787a74d15604a0c76136a439), [gist](https://gist.github.com/kevinehosford/602e4da4787a74d15604a0c76136a439).
+and finally `/share` on the spelunking session to leave a record behind:
+
+```sh
+/share
+share url: https://pi.dev/session/#602e4da4787a74d15604a0c76136a439
+gist: https://gist.github.com/kevinehosford/602e4da4787a74d15604a0c76136a439
+```
+
+view the pi session here: [https://pi.dev/session/#602e4da4787a74d15604a0c76136a439](https://pi.dev/session/#602e4da4787a74d15604a0c76136a439)
 
 ## What's next
 
