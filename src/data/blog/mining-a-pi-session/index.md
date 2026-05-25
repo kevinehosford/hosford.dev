@@ -12,6 +12,8 @@ excerpt: Spelunking Pi's session storage. JSONL on disk, directory layout, and h
 
 agent observability has been on my mind lately. what state do agents persist, how is it exposed, what shape does it take on disk. pi auto-saves every session locally, and that felt like a good place to start. low friction, inspectable, a candidate to plug into a broader observability story. this post covers what i found from a short spelunking session.
 
+pi auto-saves every session as a jsonl file in `~/.pi/agent/sessions/`, organized into per-cwd subdirs. each line is an entry with a `type` discriminator (`message`, `model_change`, `thinking_level_change`, and a handful of others), and the first line is always a `SessionHeader` with the session id, timestamp, and the cwd it belongs to.
+
 ## What I want to learn
 
 a few things stand out as worth understanding better:
