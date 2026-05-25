@@ -3,6 +3,8 @@
 .wrangler
 AGENTS.md
 CLAUDE.md
+MEMORY.md
+ERRORS.md
 dist
 node_modules
 bun.lock
