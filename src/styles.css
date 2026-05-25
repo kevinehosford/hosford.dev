@@ -1,4 +1,6 @@
 @import 'tailwindcss';
+@import 'highlight.js/styles/github-dark.css' (prefers-color-scheme: dark);
+@import 'highlight.js/styles/github.css' (prefers-color-scheme: light);
 
 @theme {
   --font-sans: 'Fira Sans', system-ui, sans-serif;
@@ -228,5 +230,65 @@ aside {
   ul,
   aside {
     padding: 0 var(--leading-space);
+  }
+}
+
+.blog-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.blog-content h1::before,
+.blog-content h2::before,
+.blog-content h3::before {
+  content: '# ';
+  display: inline-block;
+  min-width: var(--leading-space-small);
+}
+
+@media (min-width: 640px) {
+  .blog-content h1::before,
+  .blog-content h2::before,
+  .blog-content h3::before {
+    min-width: var(--leading-space);
+  }
+}
+
+.blog-content aside {
+  margin: 0;
+  padding: 1rem 1.25rem;
+  border-left: 3px solid var(--tokens-text-muted);
+  background: var(--tokens-background-neutral);
+  font-style: italic;
+}
+
+.blog-content figure[data-rehype-pretty-code-figure] {
+  margin: 0;
+}
+
+.blog-content pre {
+  padding: 1rem;
+  overflow-x: auto;
+  border-radius: 4px;
+  background: var(--tokens-background-neutral);
+}
+
+.blog-content pre code {
+  background: transparent;
+  font-weight: var(--font-weight-normal);
+}
+
+:root:not([data-theme='light']) .blog-content code span {
+  color: var(--shiki-dark);
+}
+
+:root[data-theme='light'] .blog-content code span {
+  color: var(--shiki-light);
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) .blog-content code span {
+    color: var(--shiki-light);
   }
 }
