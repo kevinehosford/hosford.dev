@@ -9,6 +9,13 @@ import rehypeStringify from 'rehype-stringify';
 import { visit } from 'unist-util-visit';
 import { createServerFn } from '@tanstack/react-start';
 
+interface DirectiveNode {
+  type: 'containerDirective' | 'leafDirective' | 'textDirective';
+  name: string;
+  attributes?: Record<string, string | null | undefined>;
+  data?: { hName?: string; hProperties?: Record<string, string | null | undefined> };
+}
+
 export interface BlogMetadata {
   slug: string;
   title: string;
@@ -34,10 +41,14 @@ function slugFromPath(path: string): string {
   return segments[segments.length - 2] ?? '';
 }
 
+function isDirectiveNode(node: { type: string }): node is DirectiveNode {
+  return node.type === 'containerDirective' || node.type === 'leafDirective' || node.type === 'textDirective';
+}
+
 function remarkDirectiveToHast() {
   return (tree: unknown) => {
-    visit(tree as never, (node: any) => {
-      if (node.type === 'containerDirective' || node.type === 'leafDirective' || node.type === 'textDirective') {
+    visit(tree as never, (node: { type: string }) => {
+      if (isDirectiveNode(node)) {
         const data = node.data || (node.data = {});
         data.hName = node.name;
         data.hProperties = node.attributes ?? {};
