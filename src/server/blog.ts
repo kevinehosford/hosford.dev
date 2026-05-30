@@ -78,19 +78,25 @@ interface ParsedBlogFile {
 
 function parseBlogFile(path: string, raw: string): ParsedBlogFile {
   const parsed = matter(raw);
-  const data = parsed.data as Partial<BlogMetadata>;
+  const data = parsed.data as Partial<Omit<BlogMetadata, 'date'>> & { date?: unknown };
   const slug = data.slug ?? slugFromPath(path);
 
   const metadata: BlogMetadata = {
     slug,
     title: data.title ?? slug,
-    date: data.date ?? '',
+    date: normalizeDate(data.date),
     tags: Array.isArray(data.tags) ? data.tags : [],
     excerpt: data.excerpt ?? '',
     draft: data.draft === true,
   };
 
   return { metadata, rawMd: parsed.content };
+}
+
+function normalizeDate(value: unknown): string {
+  if (value instanceof Date) return value.toISOString().slice(0, 10);
+  if (typeof value === 'string') return value;
+  return '';
 }
 
 function isVisible(metadata: BlogMetadata): boolean {
