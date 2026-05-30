@@ -1,2 +1,2 @@
 ### Overview
-Added a `/blog` section to hosford.dev with its own renderer (frontmatter + remark-directive) and per-post OG meta. First post: [Mining a Pi session](/blog/mining-a-pi-session) — a quick spelunk through how Pi persists agent sessions.
+Added a `/blog` section to hosford.dev with its own renderer (frontmatter + remark-directive) and per-post OG meta. First post: [Mining a Pi session](/blog/mining-a-pi-session) — a quick spelunk through how Pi persists agent sessions. Second post: [Writing a Pi extension](/blog/writing-a-pi-extension) — building a minimal Pi extension end-to-end, from auto-discovery through shipping events to Axiom.
