@@ -9,8 +9,7 @@ import { Heading } from '@/components/Heading';
 import { SITE_NAME, SITE_URL, TWITTER_HANDLE } from '@/lib/site';
 
 const ABOUT_TITLE = 'About — Kevin Hosford';
-const ABOUT_DESCRIPTION =
-  'Kevin Hosford — front-end team lead at Axiom. Links to GitHub, LinkedIn, Bluesky, X, Instagram.';
+const ABOUT_DESCRIPTION = 'Kevin Hosford — Team Lead at Axiom. Links to GitHub, LinkedIn, Bluesky, X, Instagram.';
 const ABOUT_URL = `${SITE_URL}/about`;
 
 export const Route = createFileRoute('/about')({
@@ -69,7 +68,7 @@ function RouteComponent() {
         <Heading.h1 className="text-3xl sm:text-4xl">about</Heading.h1>
         <div className="space-y-4 text-lg leading-relaxed sm:text-xl sm:leading-relaxed">
           <p>
-            i&rsquo;m kevin - front-end team lead at{' '}
+            i&rsquo;m kevin - team lead at{' '}
             <a href="https://axiom.co" target="_blank" rel="noopener noreferrer">
               axiom
             </a>
