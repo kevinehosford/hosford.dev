@@ -1,0 +1,9 @@
+### Overview
+The console side of the auth migration went up for review, with its prerequisites landing on the auth app first. Split the deploy workflows along Vercel environments and removed self-host mode.
+
+### Highlights
+- [#8245](https://github.com/axiomhq/ctrl/pull/8245), [#8246](https://github.com/axiomhq/ctrl/pull/8246) — Prerequisites on the auth app, all additive so the CLI keeps working as before: SAML sign-in by team slug, login methods that can be switched per environment, and a logout endpoint so the console doesn't have to reimplement it.
+- [#8265](https://github.com/axiomhq/ctrl/pull/8265) — The console moves off better-auth onto the WorkOS-backed auth app. It no longer owns a login page or a session store, the auth app does the signing in and sends people back. Opened this week, merged in early August once the rest was in place.
+- [#8280](https://github.com/axiomhq/ctrl/pull/8280) — Set up the session so the auth app and the console share it across their subdomains, and fixed up the logout tests' mocks while in there.
+- [#8281](https://github.com/axiomhq/ctrl/pull/8281), [#8282](https://github.com/axiomhq/ctrl/pull/8282), [#8286](https://github.com/axiomhq/ctrl/pull/8286), [#8293](https://github.com/axiomhq/ctrl/pull/8293) — Split `deploy-dev-and-preview` into a preview workflow and a dev workflow, one per Vercel environment, and taught the console env schema about the `dev` target. The Playwright jobs pull their env from a Vercel environment instead of a hand-maintained block in the workflow. Staging deploys can be dispatched manually from a branch.
+- [#8291](https://github.com/axiomhq/ctrl/pull/8291), [#8292](https://github.com/axiomhq/ctrl/pull/8292), [#8264](https://github.com/axiomhq/ctrl/pull/8264) — Removed self-host mode from the console, all of it dead code since the console only runs in cloud. The onboarding e2e test asserts content instead of a screenshot. MPL parsing handles a leading `set` statement.

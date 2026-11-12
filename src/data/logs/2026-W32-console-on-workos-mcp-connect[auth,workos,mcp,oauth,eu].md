@@ -1,0 +1,9 @@
+### Overview
+The console's move onto WorkOS merged this week. Simplified the login exchange after it, and opened the MCP server's half of the migration.
+
+### Highlights
+- [#8467](https://github.com/axiomhq/ctrl/pull/8467), [#8529](https://github.com/axiomhq/ctrl/pull/8529), [#8456](https://github.com/axiomhq/ctrl/pull/8456) — With the console on WorkOS sessions, the login exchange got simpler: it resolves the Axiom user and no longer mints a legacy token. Renamed an env var and bumped TanStack pins on the auth app to keep it in step with the console branch.
+- [#8510](https://github.com/axiomhq/ctrl/pull/8510), [axiomhq/mcp#119](https://github.com/axiomhq/mcp/pull/119) — MCP's turn. AuthKit Connect becomes the OAuth authorization server for MCP clients and the MCP worker becomes a plain resource server, dropping the OAuth provider it ran itself. The auth app stays the one place people sign in, through a standalone login URI that Connect redirects to. Both opened this week and merged later in the month.
+- [#8533](https://github.com/axiomhq/ctrl/pull/8533) — An org's allowed sign-in methods are configured and enforced on the WorkOS org, so our sign-in callbacks rely on that and stopped duplicating the check.
+- [#8454](https://github.com/axiomhq/ctrl/pull/8454) — Deprecation modal for the legacy EU console, shown on load with a role-aware call to action. It shuts down on 1 September.
+- [#8459](https://github.com/axiomhq/ctrl/pull/8459), [#8488](https://github.com/axiomhq/ctrl/pull/8488), [#8486](https://github.com/axiomhq/ctrl/pull/8486) — Took the auth app's build out of the turbo cache, because its output bakes in per-environment values. Main's typecheck went red from two PRs that were each green on their own (one renamed a prop, the other added a test using the old name), one-line fix. MPL param auto-prepend skips params the query text already declares.

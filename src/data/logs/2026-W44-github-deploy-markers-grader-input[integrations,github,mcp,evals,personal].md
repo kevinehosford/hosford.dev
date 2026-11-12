@@ -1,0 +1,9 @@
+### Overview
+More of the GitHub integration, an MCP auth discovery fix and two query page fixes. On matrix-actors (personal, private repo, still early; 135 PRs merged this week), a grader that disagreed with me turned out to be reading the wrong text.
+
+### Highlights
+- [axiomhq/axiom#19761](https://github.com/axiomhq/axiom/pull/19761), [axiomhq/axiom#19835](https://github.com/axiomhq/axiom/pull/19835) — GitHub integration: connecting no longer creates a default dataset, every row starts disabled and the user picks a dataset per repository. Deployments can become chart markers, by rules the user writes per row, since what counts as a deploy differs a lot between repositories. The second merged the week after.
+- [axiomhq/mcp#263](https://github.com/axiomhq/mcp/pull/263) — The MCP server's 401 challenge now points clients at the resource metadata for the endpoint they called, so the grant they ask for is bound to the URL they're configured with and their refreshes match it.
+- [#10479](https://github.com/axiomhq/ctrl/pull/10479), [#10517](https://github.com/axiomhq/ctrl/pull/10517) — Opening a relative saved-result link and re-running it keeps the query in the editor. The AI conversation view handles traces with more than 5,000 spans, where span timings come back as bigint.
+- matrix-actors#224 — The model grader that scores each PR against its task's done-condition disagreed with me on five PRs I'd approved. All five traced to the grader reading the wrong paragraph as the done-condition, and only about 2,000 of 4,300 characters of the description. Kept the threshold and fixed the input.
+- matrix-actors#337 — Added an evaluation rubric and a script to run it. It frames each agent loop as task, sandbox, trajectory, verifier and reward, and scores rows like held-out sets and resistance to reward hacking from 0 to 3. No scores worth showing yet.
