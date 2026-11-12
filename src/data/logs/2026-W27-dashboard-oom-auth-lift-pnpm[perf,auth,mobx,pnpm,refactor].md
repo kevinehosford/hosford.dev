@@ -1,5 +1,5 @@
 ### Overview
-Chased out-of-memory failures on dashboard pages down to a four-line fix, started the auth migration by lifting the WorkOS-based auth app into the monorepo, and removed classy-forms and the edge-querying flag. pnpm 11 on the side.
+Chased out-of-memory failures on dashboard pages down to a four-line fix, started the auth migration by lifting the WorkOS-based auth app into the monorepo, and removed classy-forms and the edge-querying flag. Also moved to pnpm 11.
 
 ### Highlights
 - [#8086](https://github.com/axiomhq/ctrl/pull/8086) — Dashboard pages were running out of memory. A heap snapshot of a production build showed one array type holding nearly all of the heap: MobX was deep-observing every dataset's field schema, which a recent change had started carrying on each dataset. Switched three fields to reference observation. +4/−4.

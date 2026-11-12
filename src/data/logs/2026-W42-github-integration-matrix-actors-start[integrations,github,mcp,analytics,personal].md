@@ -1,5 +1,5 @@
 ### Overview
-Started a first-party GitHub integration on the backend, plus some analytics and tracing odds and ends. On the personal side, started a project called matrix-actors on Saturday.
+Started a first-party GitHub integration on the backend, plus a few analytics and tracing changes. On the personal side, started a project called matrix-actors on Saturday.
 
 ### Highlights
 - [axiomhq/axiom#19567](https://github.com/axiomhq/axiom/pull/19567) — A GitHub integration backed by a GitHub App (Go): an org installs the app once, picks repositories on GitHub, and pushes, pull requests, workflow runs and the rest land in Axiom next to their logs and traces. One row per repository. Merged the following week.

@@ -1,5 +1,5 @@
 ### Overview
-The auth app got a real test suite and CLI login. Around that: automated the APL language service release chain, moved bot-authored PRs onto a GitHub App, and started removing the org/user/permission MobX stores.
+The auth app got a scenario test suite and CLI login. Also automated the APL language service release chain, moved bot-authored PRs onto a GitHub App, and started removing the org/user/permission MobX stores.
 
 ### Highlights
 - [#8208](https://github.com/axiomhq/ctrl/pull/8208) — `apps/auth` had one placeholder test and nothing running in CI. Built a Vitest harness with fakes for WorkOS and the Axiom API that drives the real route handlers, then wrote one test per scenario: round trip, redirects, SSO landing, failure handling, the token contract. 113 tests, and they gate PRs now. One scenario had nothing behind it at all, CLI login, so added that too: OAuth authorization code with PKCE over a loopback redirect.

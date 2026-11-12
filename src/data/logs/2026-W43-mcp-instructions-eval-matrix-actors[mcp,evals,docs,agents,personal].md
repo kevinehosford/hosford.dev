@@ -1,5 +1,5 @@
 ### Overview
-At work, shipped server instructions for the MCP server after running an eval on them. Outside work, the first full week of matrix-actors, a personal project that's days old and changing fast: 203 PRs merged in its repo this week, nearly all written by agents I direct. The repo is private, so its PR numbers below aren't links.
+At work, shipped server instructions for the MCP server after running an eval on them. Outside work, the first full week of matrix-actors, a personal project in its first full week: 203 PRs merged in its repo this week, nearly all written by agents I direct. The repo is private, so its PR numbers below aren't links.
 
 ### Highlights
 - [axiomhq/mcp#236](https://github.com/axiomhq/mcp/pull/236) — Every MCP session now gets server instructions: when to use Axiom, query rules aimed at guessed dataset and field names, and the docs tools. Ran an offline eval before shipping, 80 runs: 20 prompts, two agent clients, with and without the instructions. Claude picked the right tool on 19 of 20 prompts, up from 18, and guessed field names went from 2 to 0. Codex went from 10 to 12. The version a session received is recorded on its spans, so a session that outlives a deploy is attributed to the text it saw.
