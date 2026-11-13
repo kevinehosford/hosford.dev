@@ -11,7 +11,7 @@ import { SITE_NAME, SITE_URL, TWITTER_HANDLE } from '@/lib/site';
 
 const LOG_TITLE = 'Dev log — Kevin Hosford';
 const LOG_DESCRIPTION =
-  'Kevin Hosford — full-stack engineer. Dev log: weekly notes on large-scale frontend, full-stack rewrites, and agent-tooling infrastructure at Axiom.';
+  'Kevin Hosford — full-stack engineer. Weekly notes on what I shipped: product features, auth, CI and testing, query tooling and agent tooling.';
 const LOG_URL = `${SITE_URL}/log`;
 
 export const Route = createFileRoute('/log/')({
