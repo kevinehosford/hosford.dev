@@ -75,10 +75,6 @@ function RouteComponent() {
             .
           </p>
           <p>
-            12+ years engineering, owning large projects and leading teams. now build mostly through agents i direct and
-            review. value dedication, work ethic, autonomy and empathy, and strive to exemplify all four.
-          </p>
-          <p>
             read more about what i&rsquo;ve been up to on my <Link to="/log">development log</Link>.
           </p>
         </div>
